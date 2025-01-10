@@ -1,8 +1,8 @@
+const UsersController = () => import('#controllers/users_controller')
 import router from '@adonisjs/core/services/router'
-const UserController = () => import('../app/adapters/http/controllers/user_controller.js')
 
 router
   .group(() => {
-    router.post('register', [UserController, 'create'])
+    router.post('/register', [UsersController, 'create'])
   })
   .prefix('user')
