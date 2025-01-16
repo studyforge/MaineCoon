@@ -1,5 +1,5 @@
 import { inject } from '@adonisjs/core'
-import { UserRepository } from '../repository/user_repository.js'
+import { UserRepository } from '../repositories/user_repository.js'
 
 @inject()
 export class UserService {
