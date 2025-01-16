@@ -13,4 +13,14 @@ export default class UsersController {
     const payload = await userValidator.validate(userDto)
     return response.send(await this.userService.create())
   }
+
+  public async login({ request, auth, response }: HttpContext) {
+    const { email, password } = request.only(['email', 'password'])
+    try {
+      const token = await auth.use('api').attempt(email, password)
+      return response.send({ token })
+    } catch {
+      return response.unauthorized('Invalid credentials')
+    }
+  }
 }

@@ -4,5 +4,6 @@ const UsersController = () => import('../app/adapters/controllers/users_controll
 router
   .group(() => {
     router.post('/register', [UsersController, 'create'])
+    router.post('/login', [UsersController, 'login'])
   })
   .prefix('user')
