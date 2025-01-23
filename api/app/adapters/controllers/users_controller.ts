@@ -13,4 +13,13 @@ export default class UsersController {
     const payload = await registerValidator.validate(userDto)
     return response.send(await this.userService.create())
   }
+
+  public async me({ response, auth }: HttpContext) {
+    try {
+      const user = auth.getUserOrFail()
+      return response.ok(user)
+    } catch (error) {
+      return response.unauthorized({ error: 'User not found' })
+    }
+  }
 }
