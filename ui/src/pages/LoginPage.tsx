@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router";
+
 export default function LoginPage() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-row h-screen">
       <div className="flex flex-col justify-center w-2/3 ml-16">
@@ -141,7 +144,10 @@ export default function LoginPage() {
               <p className="mx-2">ou</p>
               <div className="h-0.5 bg-gray-500 w-1/2 rounded-full" />
             </div>
-            <button className="bg-gray-300 px-8 py-3 rounded-full text-gray-800">
+            <button
+              className="bg-gray-300 px-8 py-3 rounded-full text-gray-800"
+              onClick={() => navigate("/register")}
+            >
               Créer un compte
             </button>
           </form>
