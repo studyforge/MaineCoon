@@ -22,41 +22,41 @@ export default function LoginPage() {
             <path
               d="M12.826 16C12.826 16.1726 12.465 16.3125 12.0196 16.3125C11.5742 16.3125 11.2131 16.1726 11.2131 16C11.2131 15.8274 11.5742 15.6875 12.0196 15.6875C12.465 15.6875 12.826 15.8274 12.826 16Z"
               stroke="#AD49B8"
-              stroke-width="2"
+              strokeWidth="2"
             />
             <path
               d="M15.5 13.5938C15.5 14.0252 15.2834 14.375 15.0161 14.375C14.7489 14.375 14.5323 14.0252 14.5323 13.5938C14.5323 13.1623 14.7489 12.8125 15.0161 12.8125C15.2834 12.8125 15.5 13.1623 15.5 13.5938Z"
               stroke="#AD49B8"
-              stroke-width="2"
+              strokeWidth="2"
             />
             <path
               d="M9.5 13.5938C9.5 14.0252 9.28336 14.375 9.01613 14.375C8.74889 14.375 8.53226 14.0252 8.53226 13.5938C8.53226 13.1623 8.74889 12.8125 9.01613 12.8125C9.28336 12.8125 9.5 13.1623 9.5 13.5938Z"
               stroke="#AD49B8"
-              stroke-width="2"
+              strokeWidth="2"
             />
             <path
               d="M22.0004 15.4688C21.5165 15.1562 19.4197 14.375 18.6133 14.375"
               stroke="#AD49B8"
-              stroke-width="1.5"
-              stroke-linecap="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
             />
             <path
               d="M20.3871 17.9688C19.9033 17.6562 18.7742 16.875 17.9678 16.875"
               stroke="#AD49B8"
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
             <path
               d="M2 15.4688C2.48387 15.1562 4.58065 14.375 5.3871 14.375"
               stroke="#AD49B8"
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
             <path
               d="M3.61279 17.9688C4.09667 17.6562 5.2257 16.875 6.03215 16.875"
               stroke="#AD49B8"
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
           </svg>
           on{" "}
@@ -86,41 +86,41 @@ export default function LoginPage() {
           <path
             d="M12.826 16C12.826 16.1726 12.465 16.3125 12.0196 16.3125C11.5742 16.3125 11.2131 16.1726 11.2131 16C11.2131 15.8274 11.5742 15.6875 12.0196 15.6875C12.465 15.6875 12.826 15.8274 12.826 16Z"
             stroke="#AD49B8"
-            stroke-width="1"
+            strokeWidth="1"
           />
           <path
             d="M15.5 13.5938C15.5 14.0252 15.2834 14.375 15.0161 14.375C14.7489 14.375 14.5323 14.0252 14.5323 13.5938C14.5323 13.1623 14.7489 12.8125 15.0161 12.8125C15.2834 12.8125 15.5 13.1623 15.5 13.5938Z"
             stroke="#AD49B8"
-            stroke-width="1"
+            strokeWidth="1"
           />
           <path
             d="M9.5 13.5938C9.5 14.0252 9.28336 14.375 9.01613 14.375C8.74889 14.375 8.53226 14.0252 8.53226 13.5938C8.53226 13.1623 8.74889 12.8125 9.01613 12.8125C9.28336 12.8125 9.5 13.1623 9.5 13.5938Z"
             stroke="#AD49B8"
-            stroke-width="1"
+            strokeWidth="1"
           />
           <path
             d="M22.0004 15.4688C21.5165 15.1562 19.4197 14.375 18.6133 14.375"
             stroke="#AD49B8"
-            stroke-width="1"
-            stroke-linecap="round"
+            strokeWidth="1"
+            strokeLinecap="round"
           />
           <path
             d="M20.3871 17.9688C19.9033 17.6562 18.7742 16.875 17.9678 16.875"
             stroke="#AD49B8"
-            stroke-width="1"
-            stroke-linecap="round"
+            strokeWidth="1"
+            strokeLinecap="round"
           />
           <path
             d="M2 15.4688C2.48387 15.1562 4.58065 14.375 5.3871 14.375"
             stroke="#AD49B8"
-            stroke-width="1"
-            stroke-linecap="round"
+            strokeWidth="1"
+            strokeLinecap="round"
           />
           <path
             d="M3.61279 17.9688C4.09667 17.6562 5.2257 16.875 6.03215 16.875"
             stroke="#AD49B8"
-            stroke-width="1"
-            stroke-linecap="round"
+            strokeWidth="1"
+            strokeLinecap="round"
           />
         </svg>
         <div className="p-8 bg-white shadow-md rounded-md w-fit flex flex-col items-center z-10 mb-52">
