@@ -1,7 +1,19 @@
+import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const login = async () => {
+    await axios.post("http://localhost:3333/user/login", user).then(() => {
+      console.log("success");
+    });
+  };
   return (
     <div className="flex flex-row h-screen">
       <div className="flex flex-col justify-center w-2/3 ml-16">
@@ -125,18 +137,29 @@ export default function LoginPage() {
         </svg>
         <div className="p-8 bg-white shadow-md rounded-md w-fit flex flex-col items-center z-10 mb-52">
           <h1 className="text-indigo-600 font-bold text-3xl">Connectez-vous</h1>
-          <form className="flex flex-col mt-6 items-center gap-5">
+          <form
+            className="flex flex-col mt-6 items-center gap-5"
+            onSubmit={(e) => {
+              e.preventDefault();
+              login();
+            }}
+          >
             <input
               className="w-80 border-gray-200 border-2 p-2  rounded-md"
               type="text"
               placeholder="Email"
+              onBlur={(e) => setUser({ ...user, email: e.target.value })}
             />
             <input
               className="w-80 border-gray-200 border-2 p-2  rounded-md"
               type="password"
               placeholder="Mot de passe"
+              onBlur={(e) => setUser({ ...user, password: e.target.value })}
             />
-            <button className="bg-violet-600 px-8 py-3 rounded-full text-white ">
+            <button
+              className="bg-violet-600 px-8 py-3 rounded-full text-white"
+              type="submit"
+            >
               Se connecter
             </button>
             <div className="flex w-full justify-center items-center">

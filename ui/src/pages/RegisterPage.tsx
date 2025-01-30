@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -6,11 +7,13 @@ export default function RegisterPage() {
   const [user, setUser] = useState({
     email: "",
     password: "",
-    userName: "",
+    fullName: "",
   });
 
   const register = async () => {
-    console.log(user);
+    await axios.post("http://localhost:3333/user/register", user).then(() => {
+      console.log("success");
+    });
   };
 
   return (
@@ -98,7 +101,7 @@ export default function RegisterPage() {
             className="w-80 border-gray-200 border-2 p-2  rounded-md"
             type="userName"
             placeholder="Nom d'utilisateur"
-            onBlur={(e) => setUser({ ...user, userName: e.target.value })}
+            onBlur={(e) => setUser({ ...user, fullName: e.target.value })}
           />
           <button
             className="bg-violet-600 px-8 py-3 rounded-full text-white"
