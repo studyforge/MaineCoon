@@ -83,7 +83,7 @@ resource "aws_db_instance" "mainecoon-db" {
   password             = var.rds_password
   publicly_accessible  = false
   db_subnet_group_name = aws_db_subnet_group.mainecoon-subnet_group.name
-  vpc_security_group_ids = [aws_security_group.mainecoon-sg_group.id]
+  vpc_security_group_ids = [aws_security_group.mainecoon-sg-db.id]
 
   tags = {
     Name = "mainecoon-db"
