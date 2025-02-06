@@ -1,24 +1,18 @@
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
-import { UserService } from '../../domain/services/user_service.js'
-import { registerValidator } from '../validators/register_validator.js'
-import { CreateUserDto } from '../../application/dtos/create_user_dto.js'
+import { Logger } from '@adonisjs/core/logger'
 
 @inject()
 export default class UsersController {
-  constructor(private userService: UserService) {}
-
-  public async create({ response, request }: HttpContext) {
-    const userDto: CreateUserDto = request.only(['email', 'password'])
-    const payload = await registerValidator.validate(userDto)
-    return response.send(await this.userService.create())
-  }
+  constructor(private logger: Logger) {}
 
   public async me({ response, auth }: HttpContext) {
     try {
       const user = auth.getUserOrFail()
+      this.logger.info(`User ${user.id} requested`)
       return response.ok(user)
     } catch (error) {
+      this.logger.error(error)
       return response.unauthorized({ error: 'User not found' })
     }
   }
