@@ -78,11 +78,10 @@ resource "aws_db_instance" "mainecoon-db" {
   allocated_storage    = 10
   engine               = "postgres"
   engine_version       = "17.2"
-  db_name              = "mainecoon-data"
-  username             = ${{ vars.RDS_USERNAME }}
-  password             = ${{ secrets.RDS_PASSWORD }}
+  db_name              = var.rds_db_name
+  username             = var.rds_username
+  password             = var.rds_password
   publicly_accessible  = false
-  parameter_group_name = "default.mainecoon-db"
   db_subnet_group_name = aws_db_subnet_group.mainecoon-subnet_group.name
   vpc_security_group_ids = [aws_security_group.mainecoon-sg_group.id]
 

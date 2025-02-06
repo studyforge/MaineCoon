@@ -34,4 +34,7 @@ jobs:
       - name: Apply changes
         env:
           TF_VAR_namespace: ${{ vars.DOCKERHUB_USERNAME }}
+          TF_VAR_rds_username: ${{ vars.RDS_USERNAME }}
+          TF_VAR_rds_password: ${{ secrets.RDS_PASSWORD }}
+          TF_VAR_rds_db_name: ${{ vars.RDS_DB_NAME }}
         run: terraform -chdir=./config/terraform apply -auto-approve
