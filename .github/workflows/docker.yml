@@ -2,20 +2,9 @@ name: docker-image
 
 on:
   push:
-    branches:
-      - develop
-      - main
-    paths:
-      - ./api/**
-      - ./ui/**
-
+    branches: [ develop, main ]
   pull_request:
-    branches:
-      - develop
-      - main
-    paths:
-      - ./api/**
-      - ./ui/**
+    branches: [ develop, main ]
 
   workflow_dispatch:
 
