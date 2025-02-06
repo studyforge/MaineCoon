@@ -9,8 +9,6 @@ router
     router.get('/me', [UsersController, 'me']).use(middleware.auth())
     router.post('/register', [AuthController, 'register'])
     router.post('/login', [AuthController, 'login'])
-    router
-      .post('/logout', [AuthController, 'logout'])
-      .use(middleware.auth())
+    router.post('/logout', [AuthController, 'logout']).use(middleware.auth())
   })
   .prefix('user')
