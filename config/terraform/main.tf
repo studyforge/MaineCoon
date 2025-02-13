@@ -103,3 +103,18 @@ resource "aws_db_instance" "mainecoon-db" {
     Name = "mainecoon-db"
   }
 }
+
+resource "aws_eks_cluster" "eks" {
+  name     = var.cluster_name
+  role_arn = data.labrole.arn
+  version  = "1.32"
+
+  access_config {
+    authentication_mode = "API"
+  }
+
+  vpc_config {
+    subnet_ids = aws_subnet.eks_subnet[*].id
+  }
+  
+}
