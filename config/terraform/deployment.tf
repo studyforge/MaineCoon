@@ -23,40 +23,16 @@ resource "kubernetes_deployment" "maineCoon" {
         container {
           image = "gabyorel/mainecoon-app:ui-develop"
           name  = "maineCoon-ui"
-
-          liveness_probe {
-            http_get {
-              path = "/"
-              port = 3334
-
-              http_header {
-                name  = "X-Custom-Header"
-                value = "Awesome"
-              }
-            }
-
-            initial_delay_seconds = 3
-            period_seconds        = 3
+          port {
+            container_port = 8080
           }
         }
 
          container {
           image = "gabyorel/mainecoon-app:api-develop"
-          name  = "maineCoon-ui"
-
-          liveness_probe {
-            http_get {
-              path = "/"
-              port = 3333
-
-              http_header {
-                name  = "X-Custom-Header"
-                value = "Awesome"
-              }
-            }
-
-            initial_delay_seconds = 3
-            period_seconds        = 3
+          name  = "maineCoon-api"
+          port {
+            container_port = 3333
           }
         }
       }
