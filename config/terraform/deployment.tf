@@ -1,6 +1,6 @@
-resource "kubernetes_deployment" "maineCoon" {
+resource "kubernetes_deployment" "mainecoon" {
   metadata {
-    name = "maineCoon"
+    name = "mainecoon"
   }
 
   spec {
@@ -8,21 +8,21 @@ resource "kubernetes_deployment" "maineCoon" {
 
     selector {
       match_labels = {
-        app = "maineCoon"
+        app = "mainecoon"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "maineCoon"
+          app = "mainecoon"
         }
       }
 
       spec {
         container {
           image = "gabyorel/mainecoon-app:ui-develop"
-          name  = "maineCoon-ui"
+          name  = "mainecoon-ui"
           port {
             container_port = 8080
           }
@@ -30,7 +30,7 @@ resource "kubernetes_deployment" "maineCoon" {
 
          container {
           image = "gabyorel/mainecoon-app:api-develop"
-          name  = "maineCoon-api"
+          name  = "mainecoon-api"
           port {
             container_port = 3333
           }
