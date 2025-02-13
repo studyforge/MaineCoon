@@ -104,9 +104,9 @@ resource "aws_db_instance" "mainecoon-db" {
   }
 }
 
-resource "aws_eks_cluster" "eks" {
-  name     = var.cluster_name
-  role_arn = data.labrole.arn
+resource "aws_eks_cluster" "mainecoon" {
+  name     = "mainecoon-cluster"
+  role_arn = data.aws_iam_role.lab.arn
   version  = "1.32"
 
   access_config {
@@ -114,7 +114,12 @@ resource "aws_eks_cluster" "eks" {
   }
 
   vpc_config {
-    subnet_ids = aws_subnet.eks_subnet[*].id
+    endpoint_public_access  = true
+    endpoint_private_access = false
+
+    subnet_ids = [
+      aws_subnet.mainecoon-subnet-1.id,
+      aws_subnet.mainecoon-subnet-2.id
+    ]
   }
-  
 }
