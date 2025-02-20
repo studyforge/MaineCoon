@@ -29,7 +29,7 @@ resource "aws_subnet" "mainecoon-subnet-1" {
   cidr_block              = "172.16.1.0/24"
 
   map_public_ip_on_launch = false
-  availability_zone = "us-east-1a"
+  availability_zone = "eu-west-3a"
   tags = {
     Name = "mainecoon-subnet-1"
   }
@@ -41,7 +41,7 @@ resource "aws_subnet" "mainecoon-subnet-2" {
   cidr_block              = "172.16.2.0/24"
 
   map_public_ip_on_launch = false
-  availability_zone = "us-east-1b"
+  availability_zone = "eu-west-3b"
   tags = {
     Name = "mainecoon-subnet-2"
   }
