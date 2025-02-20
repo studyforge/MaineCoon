@@ -37,6 +37,7 @@ resource "aws_iam_role_policy_attachment" "eks_ec2_policy" {
 resource "aws_eks_cluster" "mainecoon" {
   name     = "mainecoon-cluster"
   role_arn = aws_iam_role.eks-cluster.arn
+  version  = "1.32"
 
   vpc_config {
     subnet_ids = [aws_subnet.mainecoon-subnet-1.id, aws_subnet.mainecoon-subnet-2.id]
@@ -51,14 +52,13 @@ resource "aws_eks_node_group" "node_group" {
 
   scaling_config {
     desired_size = 1 
-    max_size     = 2
+    max_size     = 1
     min_size     = 1
   }
 
   instance_types = ["t3.medium"]
 
   depends_on = [
-    aws_eks_cluster.mainecoon,
     aws_iam_role_policy_attachment.eks_policy,
     aws_iam_role_policy_attachment.eks_node_policy,
     aws_iam_role_policy_attachment.eks_cni_policy,
