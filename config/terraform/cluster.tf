@@ -56,4 +56,12 @@ resource "aws_eks_node_group" "node_group" {
   }
 
   instance_types = ["t3.medium"]
+
+  depends_on = [
+    aws_eks_cluster.mainecoon,
+    aws_iam_role_policy_attachment.eks_policy,
+    aws_iam_role_policy_attachment.eks_node_policy,
+    aws_iam_role_policy_attachment.eks_cni_policy,
+    aws_iam_role_policy_attachment.eks_ec2_policy
+  ]
 }
