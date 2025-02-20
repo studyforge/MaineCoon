@@ -23,3 +23,7 @@ provider "aws" {
 }
 
 provider "docker" {}
+
+provider "kubernetes" {
+  host = aws_eks_cluster.mainecoon.endpoint
+}
