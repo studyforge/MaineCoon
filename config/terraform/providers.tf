@@ -12,14 +12,14 @@ terraform {
   }
 
     backend "s3" {
-    bucket = "s3-backend-tffiles"
+    bucket = "s3-mainecoon-backend-terraform-tfstate"
     key    = ".tfstate"
-    region = "us-east-1"
+    region = "eu-west-3"
   }
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = var.region
 }
 
 provider "docker" {}

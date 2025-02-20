@@ -103,23 +103,3 @@ resource "aws_db_instance" "mainecoon-db" {
     Name = "mainecoon-db"
   }
 }
-
-resource "aws_eks_cluster" "mainecoon" {
-  name     = "mainecoon-cluster"
-  role_arn = data.aws_iam_role.lab.arn
-  version  = "1.32"
-
-  access_config {
-    authentication_mode = "API"
-  }
-
-  vpc_config {
-    endpoint_public_access  = true
-    endpoint_private_access = false
-
-    subnet_ids = [
-      aws_subnet.mainecoon-subnet-1.id,
-      aws_subnet.mainecoon-subnet-2.id
-    ]
-  }
-}
