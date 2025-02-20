@@ -38,4 +38,6 @@ resource "kubernetes_deployment" "mainecoon" {
       }
     }
   }
+
+  depends_on = [ aws_eks_node_group.node_group ]
 }
