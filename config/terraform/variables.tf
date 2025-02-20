@@ -1,3 +1,9 @@
+variable "region" {
+  description = "AWS region"
+  type        = string
+  default     = "eu-west-3"
+}
+
 variable "namespace" {
   type        = string
   description = "Docker Namespace"
