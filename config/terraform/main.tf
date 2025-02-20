@@ -1,10 +1,3 @@
-# Docker
-resource "docker_hub_repository" "mainecoon-app" {
-  namespace = var.namespace
-  name      = "mainecoon-app"
-  private   = false
-}
-
 # Création du VPC
 resource "aws_vpc" "mainecoon-vpc" {
   cidr_block = "172.16.0.0/16"
