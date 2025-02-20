@@ -25,5 +25,6 @@ provider "aws" {
 provider "docker" {}
 
 provider "kubernetes" {
-  host = aws_eks_cluster.mainecoon.endpoint
+  host  = aws_eks_cluster.mainecoon.endpoint
+  token = data.aws_eks_cluster_auth.eks_auth.token
 }
