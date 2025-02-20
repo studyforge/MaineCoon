@@ -25,6 +25,6 @@ provider "aws" {
 provider "docker" {}
 
 provider "kubernetes" {
-  host  = aws_eks_cluster.mainecoon.endpoint
-  token = data.aws_eks_cluster_auth.eks_auth.token
+  host        = aws_eks_cluster.mainecoon.endpoint
+  config_path = "~/.kube/config"
 }
