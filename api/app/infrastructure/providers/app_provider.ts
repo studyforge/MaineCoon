@@ -1,9 +1,16 @@
 import type { ApplicationService } from '@adonisjs/core/types'
 import { UserRepository } from '../../domain/repositories/user_repository.js'
 import { PgUserRepository } from '../repositories/pg_user_repository.js'
+import { MessageRepository } from '../../domain/repositories/message_repository.js'
+import { PgMessageRepository } from '../repositories/pg_message_repository.js'
+import { BaseEvent } from '@adonisjs/core/events'
 
 export default class AppProvider {
   constructor(protected app: ApplicationService) {}
+
+  protected async makeEventsDispatchable() {
+    BaseEvent.useEmitter(await this.app.container.make('emitter'))
+  }
 
   /**
    * Register bindings to the container
@@ -14,9 +21,10 @@ export default class AppProvider {
    * The container bindings have booted
    */
   async boot() {
-    this.app.container.bind(UserRepository, () => {
-      return this.app.container.make(PgUserRepository)
-    })
+    await this.makeEventsDispatchable()
+
+    this.app.container.bind(UserRepository, () => new PgUserRepository())
+    this.app.container.bind(MessageRepository, () => new PgMessageRepository())
   }
 
   /**
