@@ -4,6 +4,8 @@ import { PgUserRepository } from '../repositories/pg_user_repository.js'
 import { MessageRepository } from '../../domain/repositories/message_repository.js'
 import { PgMessageRepository } from '../repositories/pg_message_repository.js'
 import { BaseEvent } from '@adonisjs/core/events'
+import ConversationRepository from '../../domain/repositories/conversation_repository.js'
+import PgConversationRepository from '../repositories/pg_conversation_repository.js'
 
 export default class AppProvider {
   constructor(protected app: ApplicationService) {}
@@ -25,6 +27,7 @@ export default class AppProvider {
 
     this.app.container.bind(UserRepository, () => new PgUserRepository())
     this.app.container.bind(MessageRepository, () => new PgMessageRepository())
+    this.app.container.bind(ConversationRepository, () => new PgConversationRepository())
   }
 
   /**
