@@ -6,17 +6,12 @@ import { MessageRepository } from '../repositories/message_repository.js'
 export default class MessageService {
   constructor(private messageRepository: MessageRepository) {}
 
-  async createMessage(
-    content: string,
-    senderId: string,
-    conversationId: string
-  ): Promise<CreateMessageDto> {
+  async createMessage(content: string, senderId: string, conversationId: string): Promise<void> {
     const message: CreateMessageDto = {
       content: content,
       senderId: senderId,
       conversationId: conversationId,
     }
-    const createdMessage = await this.messageRepository.createMessage(message)
-    return createdMessage
+    await this.messageRepository.createMessage(message)
   }
 }

@@ -3,7 +3,7 @@ import { MessageRepository } from '../../domain/repositories/message_repository.
 import Message from '../models/message.js'
 
 export class PgMessageRepository implements MessageRepository {
-  public async createMessage(message: CreateMessageDto): Promise<Message> {
-    return await Message.create(message)
+  public async createMessage(message: CreateMessageDto): Promise<void> {
+    await Message.create(message)
   }
 }
