@@ -1,7 +1,7 @@
 resource "digitalocean_vpc" "mainecoon" {
   name     = "mainecoon-vpc"
   region   = var.region
-  ip_range = "10.128.0.0/16"
+  ip_range = "10.132.0.0/16"
 }
 
 resource "digitalocean_kubernetes_cluster" "mainecoon" {
@@ -32,4 +32,18 @@ resource "digitalocean_database_cluster" "mainecoon" {
   size       = "db-s-1vcpu-1gb"
   region     = var.region
   node_count = 1
+}
+
+resource "digitalocean_database_db" "mainecoon" {
+  cluster_id = digitalocean_database_cluster.mainecoon.id
+  name       = "mainecoon"
+}
+
+resource "digitalocean_database_firewall" "k8s_access" {
+  cluster_id = digitalocean_database_cluster.mainecoon.id
+
+  rule {
+    type  = "k8s"
+    value = digitalocean_kubernetes_cluster.mainecoon.id
+  }
 }
