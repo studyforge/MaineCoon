@@ -63,10 +63,9 @@ Le **state Terraform** est stocké dans un espace de stockage DigitalOcean. Cela
 
 ## Schéma de données
 
-<div align="center">!([images/schema-donnees.png](https://github.com/studyforge/MaineCoon/blob/readme/images/schema-donnees.png))</div>
+<div align="center">![](images/schema-donnees.png)</div>
 
 ## Rendu de l'application
 
-(images/index.png)
-<div align="center">!(https://github.com/studyforge/MaineCoon/blob/readme/images/index.png)</div>
+<div align="center">![](images/index.png)</div>
 
