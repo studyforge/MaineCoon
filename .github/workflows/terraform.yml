@@ -15,8 +15,7 @@ on:
 
 jobs:
   terraform:
-    runs-on: aws-runner
-
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,7 +32,5 @@ jobs:
       - name: Apply changes
         env:
           TF_VAR_namespace: ${{ vars.DOCKERHUB_USERNAME }}
-          TF_VAR_rds_username: ${{ vars.RDS_USERNAME }}
-          TF_VAR_rds_password: ${{ secrets.RDS_PASSWORD }}
-          TF_VAR_rds_db_name: ${{ vars.RDS_DB_NAME }}
+          TF_VAR_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
         run: terraform -chdir=./config/terraform apply -auto-approve

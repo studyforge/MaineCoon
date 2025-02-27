@@ -1,31 +1,18 @@
 terraform {
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.87"
+    digitalocean = {
+      source = "digitalocean/digitalocean"
+      version = "~> 2.49"
     }
-
-    docker = {
-      source = "docker/docker"
-      version = "~> 0.4.1"
-    }
-  }
-
-    backend "s3" {
-    bucket = "s3-mainecoon-backend-terraform-tfstate"
-    key    = ".tfstate"
-    region = "eu-west-3"
   }
 }
 
-provider "aws" {
-  region = var.region
+provider "digitalocean" {
+  token = var.token
 }
-
-provider "docker" {}
 
 provider "kubernetes" {
-  host                   = aws_eks_cluster.mainecoon.endpoint
-  cluster_ca_certificate = base64decode(aws_eks_cluster.mainecoon.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.eks_auth.token
+  host                   = data.digitalocean_kubernetes_cluster.mainecoon.endpoint
+  cluster_ca_certificate = base64decode(data.digitalocean_kubernetes_cluster.mainecoon.kube_config[0].cluster_ca_certificate)
+  token                  = data.digitalocean_kubernetes_cluster.mainecoon.kube_config[0].token
 }

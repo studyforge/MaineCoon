@@ -1,22 +1,17 @@
+variable "token" {
+  description = "Digital Ocean API token"
+  type        = string
+  sensitive   = true
+}
+
 variable "region" {
-  description = "AWS region"
+  description = "Digital Ocean region"
   type        = string
-  default     = "eu-west-3"
+  default     = "fra1"
 }
 
-variable "namespace" {
+variable "machine_type" {
+  description = "Kubernetes node size"
   type        = string
-  description = "Docker Namespace"
-}
-
-variable "rds_username" {
-  type        = string
-}
-
-variable "rds_password" {
-  type        = string
-}
-
-variable "rds_db_name" {
-  type        = string
+  default     = "s-2vcpu-2gb"
 }

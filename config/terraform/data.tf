@@ -1,3 +1,1 @@
-data "aws_eks_cluster_auth" "eks_auth" {
-  name = aws_eks_cluster.mainecoon.name
-}
+data "digitalocean_kubernetes_versions" "cluster" {}
