@@ -26,15 +26,6 @@ jobs:
       - name: Init
         run: terraform -chdir=./config/terraform init
 
-      - name: Import existing resources
-        env:
-          TF_VAR_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
-        run: |
-          terraform -chdir=./config/terraform import digitalocean_vpc.mainecoon 07daeb87-719e-41db-be57-14b04eae3f73
-          terraform -chdir=./config/terraform import digitalocean_database_firewall.k8s_access b8ecd2ab-2267-4a5e-8692-cbf1d32583e3
-          terraform -chdir=./config/terraform import digitalocean_kubernetes_cluster.mainecoon c416ce8e-f731-4521-b7ab-54877ab55ec6
-          terraform -chdir=./config/terraform import digitalocean_database_cluster.mainecoon 4aa687c8-7517-4c58-af03-455d85a13360
-
       - name: Apply changes
         env:
           TF_VAR_namespace: ${{ vars.DOCKERHUB_USERNAME }}
