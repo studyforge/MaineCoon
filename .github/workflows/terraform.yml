@@ -26,6 +26,9 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
       - name: Init
         run: terraform -chdir=./config/terraform init
 
