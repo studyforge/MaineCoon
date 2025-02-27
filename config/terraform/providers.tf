@@ -23,11 +23,6 @@ import {
 }
 
 import {
-  id = "b8ecd2ab-2267-4a5e-8692-cbf1d32583e3"
-  to = digitalocean_database_firewall.k8s_access
-}
-
-import {
   id = "c416ce8e-f731-4521-b7ab-54877ab55ec6"
   to = digitalocean_kubernetes_cluster.mainecoon
 }
