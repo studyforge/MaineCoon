@@ -26,12 +26,13 @@ resource "digitalocean_kubernetes_node_pool" "app" {
 }
 
 resource "digitalocean_database_cluster" "mainecoon" {
-  name       = "mainecoon-db"
-  engine     = "pg"
-  version    = "17"
-  size       = "db-s-1vcpu-1gb"
-  region     = var.region
-  node_count = 1
+  name                 = "mainecoon-db"
+  engine               = "pg"
+  version              = "17"
+  size                 = "db-s-1vcpu-1gb"
+  region               = var.region
+  private_network_uuid = digitalocean_vpc.mainecoon.id
+  node_count           = 1
 }
 
 resource "digitalocean_database_db" "mainecoon" {
