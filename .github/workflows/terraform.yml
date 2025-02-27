@@ -27,6 +27,8 @@ jobs:
         run: terraform -chdir=./config/terraform init
 
       - name: Import existing resources
+        env:
+          TF_VAR_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
         run: |
           terraform -chdir=./config/terraform import digitalocean_vpc.mainecoon 07daeb87-719e-41db-be57-14b04eae3f73
           terraform -chdir=./config/terraform import digitalocean_database_firewall.k8s_access b8ecd2ab-2267-4a5e-8692-cbf1d32583e3
