@@ -3,7 +3,18 @@
 ## Contexte
 Ce projet s'inscrit dans le cadre d'un cours de DevOps où nous avons abordé plusieurs technologies et pratiques modernes pour l'automatisation du déploiement et de la gestion d'infrastructure.
 
-## Technologies utilisées
+Nous avons développé une application de messagerie instantanée afin de déployer celle-ci dans deux environnements distincts : production et pre-production (develop).
+
+## Technologies pour la création de l'application
+
+| Technologie  | Usage |
+|---|---|
+| Figma | Maquettage |
+| React TS + Vite | Réalisation du client web |
+| Adonis.js | Réalisation de l'api et du websocket |
+| Postgres | Base de données relationnelle |
+
+## Technologies DevOps utilisées
 
 | Technologie  | Usage |
 |---|---|
@@ -14,58 +25,54 @@ Ce projet s'inscrit dans le cadre d'un cours de DevOps où nous avons abordé pl
 
 L'infrastructure a été provisionnée sur **DigitalOcean**.
 
-## Architecture de l'application
-> TODO
-
-## Comment déployer le projet
-> TODO
-
 ## Tâches réalisées
 
 ### Partie Dev.
 
-#### > Création de l’API - **Warren/Hugo/Gabriel**
-Nous avons développé une **API REST** permettant aux différents services et au client web de communiquer avec le backend. L’API expose plusieurs endpoints pour gérer les ressources de l’application.
-
-#### > Mise en place des logs sur l’API - **Hugo**
-Un système de **logging** a été intégré dans l’API afin de tracer les actions importantes (logs d’accès, erreurs, logs applicatifs). Ces logs facilitent le monitoring et le diagnostic en cas d’incident.
-
-#### > Maquetage - **Hugo**
+#### > Maquetage
 Avant de coder l’interface, nous avons conçu des **maquettes** pour le client web, afin de valider l’expérience utilisateur et le parcours de navigation.
 
-#### > Développement du client web - **Hugo**
+#### > Développement du client web
 Le **client web** a ensuite été développé pour permettre aux utilisateurs finaux d’interagir avec l’application. Il consomme directement les endpoints de l’API et offre une interface utilisateur intuitive.
 
-#### > Conteneurisation - **Warren**
-Chaque composant de l’application a été **conteneurisé** à l’aide de **Docker**. Un Dockerfiles a été créé afin de garantir une image optimisée.
+#### > Création de l’API
+Nous avons développé une **API REST** permettant aux différents services et au client web de communiquer avec le backend. L’API expose plusieurs endpoints pour gérer les ressources de l’application et un websocket afin de faire dialoguer les utilisateurs en temps réel.
+
+#### > Mise en place des logs sur l’API
+Un système de **logging** a été intégré dans l’API afin de tracer les actions importantes (logs d’accès, erreurs, logs applicatifs). Ces logs facilitent le monitoring et le diagnostic en cas d’incident.
+
+Lien maquette : https://www.figma.com/design/vokccttPb6T0FUMQLNf4VX/Untitled?node-id=0-1&t=6vodwVtDxVRsPB5P-1
 
 ---
 
 ### Partie Ops.
 
-#### > Mise en place de la base de données - **Axel**
+#### > Conteneurisation
+Chaque composant de l’application a été **conteneurisé** à l’aide de **Docker**. Un Dockerfile pour le client et pour l'api a été créé afin de garantir la bonne exécution sur n'importe quel environnement.
+
+#### > Mise en place de la base de données
 La base de données a été déployée sur **DigitalOcean Managed Databases**. La configuration réseau, les accès, les sauvegardes et la sécurité ont été pris en compte.
 
-#### > Déploiement Kubernetes - **Axel**
+#### > Déploiement Kubernetes
 L’application conteneurisée a ensuite été déployée dans un cluster **DigitalOcean Kubernetes (DOKS)**. Chaque service dispose de son propre déploiement et service.
 
-#### > Mise en place d’un runner GitHub - **Axel**
+#### > Mise en place d’un runner GitHub
 Pour exécuter certaines tâches lourdes (ex : déploiement, tests end-to-end), un **runner auto-hébergé** a été configuré. Cela permet de maîtriser l’environnement d’exécution et d’assurer une meilleure intégration avec notre infrastructure.
 
-#### > Pipeline Terraform - **Gabriel**
-L’ensemble de l’infrastructure a été défini dans des fichiers **Terraform**. Un **pipeline CI/CD** a été mis en place pour appliquer ces configurations automatiquement à chaque mise à jour.
+#### > Pipeline Terraform
+L’ensemble de l’infrastructure a été défini dans des fichiers **Terraform**. Un **pipeline CI/CD** a été mis en place pour appliquer ces configurations automatiquement à chaque mise à jour et garantir le déploiement de l'image sur le cluster.
 
-#### > Pipeline Docker - **Gabriel**
-Un pipeline de **build et de push** des images Docker a été mis en place. À chaque modification du code, l’image est automatiquement reconstruite puis poussée dans un **registre Docker** (Docker Hub, GHCR ou autre). Une pipeline **Terraform** a également été créée afin de mettre en place et de maintenir l'environnement.
+#### > Pipeline Docker
+Un pipeline de **build et de push** des images Docker a été mis en place. À chaque modification du code, l’image est automatiquement reconstruite puis poussée dans un **registre Docker** (Docker Hub).
 
-#### > Gestion du tf.state - **Gabriel**
+#### > Gestion du tf.state
 Le **state Terraform** est stocké dans un espace de stockage DigitalOcean. Cela garantit la persistance et la centralisation de l’état, facilitant le travail en équipe et évitant les conflits.
 
 ## Schéma de données
 
-<div align="center">![](images/schema-donnees.png)</div>
+![db schema](images/schema-donnees.png)
 
 ## Rendu de l'application
 
-<div align="center">![](images/index.png)</div>
+![client](images/index.png)
 
