@@ -1,12 +1,12 @@
 FROM node:22-alpine AS base
 WORKDIR /app
 
-FROM base AS prod-dependencies
+FROM base AS dependencies
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
 FROM base AS build
-COPY --from=prod-dependencies /app/node_modules /app/node_modules
+COPY --from=dependencies /app/node_modules /app/node_modules
 COPY . .
 RUN npm run build
 
