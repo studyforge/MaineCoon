@@ -15,11 +15,5 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine
-RUN addgroup -S nonroot && adduser -S nonroot -G nonroot
-COPY --from=build --chown=nonroot:nonroot /app/dist /usr/share/nginx/html
-COPY --chown=nonroot:nonroot /nginx.conf /etc/nginx/nginx.conf
-RUN mkdir -p /var/cache/nginx /var/log/nginx /var/run/nginx && \
-    chown -R nonroot:nonroot /var/cache/nginx /var/log/nginx /var/run/nginx
-USER nonroot
-EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;", "-c", "/etc/nginx/nginx.conf"]
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
