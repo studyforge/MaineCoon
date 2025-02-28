@@ -1,5 +1,5 @@
 export type CreateMessageDto = {
   content: string
-  senderId: string
-  conversationId: string
+  userId: number
+  conversationId: number
 }

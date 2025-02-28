@@ -1,5 +1,6 @@
 import ConversationRepository from '../../domain/repositories/conversation_repository.js'
 import Conversation from '../models/conversation.js'
+import User from '../models/user.js'
 
 export default class PgConversationRepository implements ConversationRepository {
   public async create(name: string): Promise<void> {
@@ -8,5 +9,11 @@ export default class PgConversationRepository implements ConversationRepository 
 
   public async findById(id: string): Promise<Conversation | null> {
     return await Conversation.find(id)
+  }
+
+  public async addUserToConversation(userId: number, conversationId: number): Promise<void> {
+    const conversation = await Conversation.findOrFail(conversationId)
+    const user = await User.findOrFail(userId)
+    await conversation.related('user').attach([user.id])
   }
 }
