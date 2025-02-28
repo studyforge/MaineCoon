@@ -1,8 +1,5 @@
-import { BaseModel, column, hasOne } from '@adonisjs/lucid/orm'
-import type { HasOne } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
-
-import Conversation from './conversation.js'
 
 export default class Message extends BaseModel {
   @column({ isPrimary: true })
@@ -15,11 +12,8 @@ export default class Message extends BaseModel {
   declare createdAt: DateTime
 
   @column()
-  declare senderId: string
+  declare userId: number
 
   @column()
-  declare conversationId: string
-
-  @hasOne(() => Conversation)
-  declare conversation: HasOne<typeof Conversation>
+  declare conversationId: number
 }

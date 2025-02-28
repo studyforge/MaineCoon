@@ -24,4 +24,14 @@ export default class ConversationController {
       return response.badRequest({ error: error.message })
     }
   }
+
+  public async addUserToConversation({ request, response }: HttpContext): Promise<void> {
+    try {
+      const { userId, conversationId } = request.only(['userId', 'conversationId'])
+      await this.conversationService.addUserToConversation(userId, conversationId)
+      return response.created()
+    } catch (error) {
+      return response.badRequest({ error: error.message })
+    }
+  }
 }

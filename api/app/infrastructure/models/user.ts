@@ -35,7 +35,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @hasMany(() => Message)
   declare message: HasMany<typeof Message>
 
-  @manyToMany(() => Conversation)
+  @manyToMany(() => Conversation, {
+    pivotTable: 'participants',
+  })
   declare conversation: ManyToMany<typeof Conversation>
 
   static accessTokens = DbAccessTokensProvider.forModel(User, {
