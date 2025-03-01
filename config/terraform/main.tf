@@ -1,11 +1,11 @@
 resource "digitalocean_vpc" "mainecoon" {
-  name     = "mainecoon-vpc"
+  name     = "mainecoon"
   region   = var.region
   ip_range = "10.132.0.0/16"
 }
 
 resource "digitalocean_kubernetes_cluster" "mainecoon" {
-  name          = "mainecoon-cluster"
+  name          = "mainecoon"
   region        = var.region
   version       = data.digitalocean_kubernetes_versions.cluster.latest_version
   vpc_uuid      = digitalocean_vpc.mainecoon.id
@@ -26,7 +26,7 @@ resource "digitalocean_kubernetes_node_pool" "app" {
 }
 
 resource "digitalocean_database_cluster" "mainecoon" {
-  name                 = "mainecoon-db"
+  name                 = "mainecoon"
   engine               = "pg"
   version              = "17"
   size                 = "db-s-1vcpu-1gb"

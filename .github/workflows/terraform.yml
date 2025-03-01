@@ -13,27 +13,42 @@ on:
 
   workflow_dispatch:
 
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.SPACE_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.SPACE_SECRET_ACCESS_KEY }}
+  TF_VAR_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./config/terraform
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Terraform
+      - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Init
-        run: terraform -chdir=./config/terraform init
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform validate
+        id: validate
+        run: terraform validate
+
+      - name: Terraform plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -input=false
+        continue-on-error: true
+
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
 
       - name: Apply changes
-        env:
-          TF_VAR_namespace: ${{ vars.DOCKERHUB_USERNAME }}
-          TF_VAR_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
-        run: terraform -chdir=./config/terraform apply -auto-approve
-
-      - name: Upload Terraform state as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: terraform-state
-          path: ./config/terraform/terraform.tfstate
+        run: terraform apply -auto-approve -input=false

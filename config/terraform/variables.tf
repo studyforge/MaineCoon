@@ -15,3 +15,9 @@ variable "machine_type" {
   type        = string
   default     = "s-2vcpu-2gb"
 }
+
+variable "api_port" {
+  description = "Port number for the Mainecoon API container, used for incoming requests"
+  type        = number
+  default     = 3333
+}
