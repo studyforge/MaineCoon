@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     endpoints = {
-      s3 = "https://mainecoon.fra1.digitaloceanspaces.com"
+      s3 = "https://fra1.digitaloceanspaces.com"
     }
 
     bucket = "mainecoon"
