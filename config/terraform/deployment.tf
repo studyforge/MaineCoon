@@ -1,3 +1,11 @@
+resource "random_string" "app_key" {
+  length  = 16
+  upper   = false
+  lower   = true
+  special = false
+  numeric = false 
+}
+
 resource "kubernetes_deployment" "mainecoon" {
   metadata {
     name = "mainecoon"
@@ -59,6 +67,11 @@ resource "kubernetes_deployment" "mainecoon" {
           env {
             name  = "LOG_LEVEL"
             value = "info"
+          }
+
+          env {
+            name  = "APP_KEY"
+            value = random_string.app_key.result
           }
 
           env {
