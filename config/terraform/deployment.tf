@@ -33,17 +33,19 @@ resource "kubernetes_deployment" "mainecoon" {
         }
 
         container {
-          image = "gabyorel/mainecoon-app:ui-develop"
-          name  = "mainecoon-ui"
+          image             = "gabyorel/mainecoon-app:ui-develop"
+          image_pull_policy = "Always"
+          name              = "mainecoon-ui"
 
           port {
-            container_port = 8080
+            container_port = 80
           }
         }
 
         container {
-          image = "gabyorel/mainecoon-app:api-develop"
-          name  = "mainecoon-api"
+          image             = "gabyorel/mainecoon-app:api-develop"
+          image_pull_policy = "Always"
+          name              = "mainecoon-api"
 
           port {
             container_port = var.api_port
@@ -123,7 +125,7 @@ resource "kubernetes_service" "mainecoon" {
 
     port {
       port        = 80
-      target_port = 8080
+      target_port = 80
     }
 
     type = "LoadBalancer"
