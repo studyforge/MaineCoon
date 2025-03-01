@@ -109,6 +109,11 @@ resource "kubernetes_deployment" "mainecoon" {
 resource "kubernetes_service" "mainecoon" {
   metadata {
     name = "mainecoon"
+    annotations = {
+      "service.beta.kubernetes.io/do-loadbalancer-name" = "mainecoon-app"
+      "service.beta.kubernetes.io/do-loadbalancer-protocol" = "http"
+      "service.beta.kubernetes.io/do-loadbalancer-http-ports" = "80"
+    }
   }
 
   spec {
