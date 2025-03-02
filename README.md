@@ -76,3 +76,14 @@ Le **state Terraform** est stocké dans un espace de stockage DigitalOcean. Cela
 
 ![client](images/index.png)
 
+## Environnement de développement
+
+La mise en place d'un environnement de développement nécessite de définir des variables pour le bon fonctionnement de l'application.
+
+Dans le dossier ```/ui``` et ```/api```, copiez le fichier ```.env.example``` vers ```.env.development.local``` et remplacez les valeurs selon vos besoins.
+
+L'exécution complète de l'application se fait via une stack Docker en exécutant depuis le dossier ```/config``` la commande :
+
+```sh
+docker compose up
+```
