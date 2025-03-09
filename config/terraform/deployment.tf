@@ -128,6 +128,11 @@ resource "kubernetes_service" "mainecoon" {
       target_port = 80
     }
 
+    port {
+      port        = var.api_port
+      target_port = var.api_port
+    }
+
     type = "LoadBalancer"
   }
 
