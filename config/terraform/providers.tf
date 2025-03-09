@@ -1,25 +1,35 @@
 terraform {
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.84.0"
-    }
-
-    docker = {
-      source = "docker/docker"
-      version = "~> 0.4.1"
+    digitalocean = {
+      source = "digitalocean/digitalocean"
+      version = "~> 2.49"
     }
   }
 
-    backend "s3" {
-    bucket = "s3-backend-tffiles"
-    key    = ".tfstate"
-    region = "us-east-1"
+  backend "s3" {
+    endpoints = {
+      s3 = "https://fra1.digitaloceanspaces.com"
+    }
+
+    bucket = "mainecoon"
+    key    = "iac/terraform.tfstate"
+
+    # Deactivate a few AWS-specific checks
+    skip_credentials_validation = true
+    skip_requesting_account_id  = true
+    skip_metadata_api_check     = true
+    skip_region_validation      = true
+    skip_s3_checksum            = true
+    region                      = "us-east-1"
   }
 }
 
-provider "aws" {
-  region = "us-east-1"
+provider "digitalocean" {
+  token = var.token
 }
 
-provider "docker" {}
+provider "kubernetes" {
+  host                   = data.digitalocean_kubernetes_cluster.mainecoon.endpoint
+  cluster_ca_certificate = base64decode(data.digitalocean_kubernetes_cluster.mainecoon.kube_config[0].cluster_ca_certificate)
+  token                  = data.digitalocean_kubernetes_cluster.mainecoon.kube_config[0].token
+}
