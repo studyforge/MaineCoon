@@ -3,7 +3,7 @@
 ## Contexte
 Ce projet s'inscrit dans le cadre d'un cours de DevOps où nous avons abordé plusieurs technologies et pratiques modernes pour l'automatisation du déploiement et de la gestion d'infrastructure.
 
-Nous avons développé une application de messagerie instantanée afin de déployer celle-ci dans deux environnements distincts : production et pre-production (develop).
+Nous avons développé une application de messagerie instantanée afin de déployer celle-ci dans deux environnements distincts : production (main) et pre-production (develop).
 
 ## Technologies pour la création de l'application
 
