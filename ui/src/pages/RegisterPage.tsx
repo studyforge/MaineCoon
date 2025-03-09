@@ -11,7 +11,7 @@ export default function RegisterPage() {
   });
 
   const register = async () => {
-    await axios.post("http://localhost:3333/user/register", user).then(() => {
+    await axios.post("/user/register", user).then(() => {
       console.log("success");
     });
   };

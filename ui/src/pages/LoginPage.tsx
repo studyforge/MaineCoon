@@ -10,7 +10,7 @@ export default function LoginPage() {
   });
 
   const login = async () => {
-    await axios.post("http://localhost:3333/user/login", user).then(() => {
+    await axios.post("/user/login", user).then(() => {
       console.log("success");
     });
   };
