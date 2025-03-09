@@ -114,7 +114,7 @@ resource "kubernetes_service" "mainecoon" {
     annotations = {
       "service.beta.kubernetes.io/do-loadbalancer-name" = "mainecoon-app"
       "service.beta.kubernetes.io/do-loadbalancer-protocol" = "http"
-      "service.beta.kubernetes.io/do-loadbalancer-http-ports" = "80"
+      "service.beta.kubernetes.io/do-loadbalancer-http-ports" = "80,3333"
     }
   }
 
