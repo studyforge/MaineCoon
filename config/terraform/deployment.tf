@@ -109,7 +109,7 @@ resource "kubernetes_service" "backend" {
 
   spec {
     selector = {
-      "name" = "api"
+      "app" = "api"
       "tier" = "backend"
     }
 
