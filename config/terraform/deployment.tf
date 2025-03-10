@@ -94,6 +94,11 @@ resource "kubernetes_deployment" "backend" {
             name  = "DB_DATABASE"
             value = digitalocean_database_db.mainecoon.name
           }
+
+          env {
+            name  = "NODE_TLS_REJECT_UNAUTHORIZED"
+            value = 0
+          }
         }
       }
     }
