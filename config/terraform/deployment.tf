@@ -6,9 +6,9 @@ resource "random_string" "app_key" {
   numeric = false 
 }
 
-resource "kubernetes_deployment" "mainecoon" {
+resource "kubernetes_deployment" "backend" {
   metadata {
-    name = "mainecoon"
+    name = "backend"
   }
 
   spec {
@@ -16,14 +16,18 @@ resource "kubernetes_deployment" "mainecoon" {
 
     selector {
       match_labels = {
-        app = "mainecoon"
+        "app"   = "api"
+        "tier"  = "backend"
+        "track" = "stable" 
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "mainecoon"
+          "app"   = "api"
+          "tier"  = "backend"
+          "track" = "stable"
         }
       }
 
@@ -33,19 +37,9 @@ resource "kubernetes_deployment" "mainecoon" {
         }
 
         container {
-          image             = "gabyorel/mainecoon-app:ui-develop"
-          image_pull_policy = "Always"
-          name              = "mainecoon-ui"
-
-          port {
-            container_port = 80
-          }
-        }
-
-        container {
           image             = "gabyorel/mainecoon-app:api-develop"
           image_pull_policy = "Always"
-          name              = "mainecoon-api"
+          name              = "api"
 
           port {
             container_port = var.api_port
@@ -104,37 +98,100 @@ resource "kubernetes_deployment" "mainecoon" {
       }
     }
   }
+}
+
+resource "kubernetes_service" "backend" {
+  depends_on = [ kubernetes_deployment.backend ]
+
+  metadata {
+    name = "api"
+  }
+
+  spec {
+    selector = {
+      "name" = "api"
+      "tier" = "backend"
+    }
+
+    port {
+      protocol    = "TCP"
+      port        = 80
+      target_port = var.api_port
+    }
+  }
+}
+
+
+resource "kubernetes_deployment" "frontend" {
+  metadata {
+    name = "frontend"
+  }
+
+  spec {
+    replicas = 1
+
+    selector {
+      match_labels = {
+        "app"   = "frontend"
+        "tier"  = "frontend"
+        "track" = "stable"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          "app"   = "frontend"
+          "tier"  = "frontend"
+          "track" = "stable"
+        }
+      }
+
+      spec {
+        node_selector = {
+          "doks.digitalocean.com/node-pool" = "app"
+        }
+
+        container {
+          image             = "gabyorel/mainecoon-app:ui-develop"
+          image_pull_policy = "Always"
+          name              = "frontend"
+
+          port {
+            container_port = 80
+          }
+        }
+      }
+    }
+  }
 
   depends_on = [ digitalocean_kubernetes_node_pool.app ]
 }
 
-resource "kubernetes_service" "mainecoon" {
+resource "kubernetes_service" "frontend" {
+  depends_on = [ kubernetes_deployment.frontend ]
+
   metadata {
-    name = "mainecoon"
+    name = "frontend"
     annotations = {
       "service.beta.kubernetes.io/do-loadbalancer-name" = "mainecoon-app"
       "service.beta.kubernetes.io/do-loadbalancer-protocol" = "http"
-      "service.beta.kubernetes.io/do-loadbalancer-http-ports" = "80,3333"
+      "service.beta.kubernetes.io/do-loadbalancer-http-ports" = "80"
     }
   }
 
   spec {
     selector = {
-      app = "mainecoon"
+      "app"  = "frontend"
+      "tier" = "frontend"
     }
 
     port {
+      protocol    = "TCP"
       port        = 80
       target_port = 80
     }
 
-    port {
-      port        = var.api_port
-      target_port = var.api_port
-    }
-
     type = "LoadBalancer"
   }
-
-  depends_on = [ kubernetes_deployment.mainecoon ]
 }
