@@ -14,10 +14,18 @@ COPY --from=dependencies /app/node_modules /app/node_modules
 COPY . .
 RUN node ace build
 
-FROM gcr.io/distroless/nodejs22-debian12:nonroot
-WORKDIR /app
+# FROM gcr.io/distroless/nodejs22-debian12:nonroot
+# WORKDIR /app
+# ENV NODE_ENV=production
+# COPY --from=prod-dependencies --chown=nonroot:nonroot /app/node_modules node_modules
+# COPY --from=build --chown=nonroot:nonroot /app/build .
+# EXPOSE 3333
+# CMD ["./bin/server.js"]
+
+FROM base
 ENV NODE_ENV=production
-COPY --from=prod-dependencies --chown=nonroot:nonroot /app/node_modules node_modules
-COPY --from=build --chown=nonroot:nonroot /app/build .
+COPY --from=prod-dependencies /app/node_modules /app/node_modules
+COPY --from=build /app/build /app
 EXPOSE 3333
-CMD ["./bin/server.js"]
+ENTRYPOINT ["node", "ace", "migration:run", "--force"]
+CMD ["node", "./bin/server.js"]
