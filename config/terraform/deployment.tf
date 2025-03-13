@@ -72,7 +72,7 @@ resource "kubernetes_deployment" "backend" {
 
           env {
             name  = "DB_HOST"
-            value = digitalocean_database_cluster.mainecoon.host
+            value = digitalocean_database_cluster.mainecoon.private_host
           }
 
           env {
