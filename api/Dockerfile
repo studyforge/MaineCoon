@@ -27,5 +27,4 @@ ENV NODE_ENV=production
 COPY --from=prod-dependencies /app/node_modules /app/node_modules
 COPY --from=build /app/build /app
 EXPOSE 3333
-ENTRYPOINT ["node", "ace", "migration:run", "--force"]
-CMD ["node", "./bin/server.js"]
+ENTRYPOINT ["sh", "-c", "node ace migration:run --force && exec node ./bin/server.js"]
