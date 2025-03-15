@@ -7,6 +7,8 @@ resource "random_string" "app_key" {
 }
 
 resource "kubernetes_deployment" "backend" {
+  depends_on = [ digitalocean_kubernetes_node_pool.app ]
+
   metadata {
     name = "backend"
   }
@@ -128,6 +130,8 @@ resource "kubernetes_service" "backend" {
 
 
 resource "kubernetes_deployment" "frontend" {
+  depends_on = [ digitalocean_kubernetes_node_pool.app ]
+
   metadata {
     name = "frontend"
   }
@@ -169,8 +173,6 @@ resource "kubernetes_deployment" "frontend" {
       }
     }
   }
-
-  depends_on = [ digitalocean_kubernetes_node_pool.app ]
 }
 
 resource "kubernetes_service" "frontend" {
