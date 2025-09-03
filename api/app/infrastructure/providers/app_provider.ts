@@ -1,11 +1,11 @@
 import type { ApplicationService } from '@adonisjs/core/types'
-import { UserRepository } from '../../domain/repositories/user_repository.js'
-import { PgUserRepository } from '../repositories/pg_user_repository.js'
 import { MessageRepository } from '../../domain/repositories/message_repository.js'
 import { PgMessageRepository } from '../repositories/pg_message_repository.js'
 import { BaseEvent } from '@adonisjs/core/events'
 import ConversationRepository from '../../domain/repositories/conversation_repository.js'
 import PgConversationRepository from '../repositories/pg_conversation_repository.js'
+import  { AuthRepository } from '../../domain/repositories/auth_repository.js'
+import { PgAuthRepository } from '../repositories/pg_auth_repository.js'
 
 export default class AppProvider {
   constructor(protected app: ApplicationService) {}
@@ -25,7 +25,7 @@ export default class AppProvider {
   async boot() {
     await this.makeEventsDispatchable()
 
-    this.app.container.bind(UserRepository, () => new PgUserRepository())
+    this.app.container.bind(AuthRepository, () => new PgAuthRepository())
     this.app.container.bind(MessageRepository, () => new PgMessageRepository())
     this.app.container.bind(ConversationRepository, () => new PgConversationRepository())
   }

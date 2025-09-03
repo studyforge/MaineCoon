@@ -4,16 +4,17 @@ import { loginValidator } from '../validators/login_validator.js'
 import User from '../../infrastructure/models/user.js'
 import { Logger } from '@adonisjs/core/logger'
 import { inject } from '@adonisjs/core'
+import AuthService from '../../domain/services/auth_service.js'
+import { CreateUserDto } from '../../application/dtos/create_user_dto.js'
 
 @inject()
 export default class AuthController {
-  constructor(private logger: Logger) {}
+  constructor(private logger: Logger, private authService: AuthService) {}
 
   async register({ request, response }: HttpContext) {
     try {
       const payload = await request.validateUsing(registerValidator)
-      const user = await User.create(payload)
-      this.logger.info(`User ${user.id} created`)
+      const user = await this.authService.register(payload as CreateUserDto)
       return response.created(user)
     } catch (error) {
       this.logger.error(error)

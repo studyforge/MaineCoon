@@ -1,7 +1,7 @@
 import { inject } from '@adonisjs/core'
 import { ConversationDto } from '../../application/dtos/conversation_dto.js'
 import ConversationRepository from '../repositories/conversation_repository.js'
-import { UserRepository } from '../repositories/user_repository.js'
+import { UserRepository } from '../repositories/auth_repository.js'
 
 @inject()
 export default class ConversationService {
