@@ -1,7 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { registerValidator } from '../validators/register_validator.js'
 import { loginValidator } from '../validators/login_validator.js'
-import User from '../../infrastructure/models/user.js'
 import { Logger } from '@adonisjs/core/logger'
 import { inject } from '@adonisjs/core'
 import AuthService from '../../domain/services/auth_service.js'
@@ -25,9 +24,7 @@ export default class AuthController {
   async login({ request, response }: HttpContext) {
     try {
       const { email, password } = await request.validateUsing(loginValidator)
-      const user = await User.verifyCredentials(email, password)
-      const token = await User.accessTokens.create(user)
-      this.logger.info(`User ${user.id} logged in`)
+      const { user, token } = await this.authService.login(email, password)
       return response.ok({
         token: token,
         ...user.serialize(),
@@ -45,8 +42,7 @@ export default class AuthController {
       if (!token) {
         return response.badRequest({ message: 'Token not found' })
       }
-      await User.accessTokens.delete(user, token)
-      this.logger.info(`User ${user.id} logged out`)
+      await this.authService.logout(user, token)
       return response.ok({ message: 'Logged out' })
     } catch (error) {
       this.logger.error(error)

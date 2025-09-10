@@ -1,13 +1,13 @@
 import { inject } from '@adonisjs/core'
 import { ConversationDto } from '../../application/dtos/conversation_dto.js'
 import ConversationRepository from '../repositories/conversation_repository.js'
-import { UserRepository } from '../repositories/auth_repository.js'
+import { AuthRepository } from '../repositories/auth_repository.js'
 
 @inject()
 export default class ConversationService {
   constructor(
     private conversationRepository: ConversationRepository,
-    private userRepository: UserRepository
+    private authRepository: AuthRepository
   ) {}
 
   public async createConversation(title: string): Promise<void> {
@@ -20,7 +20,7 @@ export default class ConversationService {
   }
 
   public async addUserToConversation(userId: number, conversationId: number): Promise<void> {
-    const user = await this.userRepository.findById(userId)
+    const user = await this.authRepository.findById(userId)
     const conversation = await this.conversationRepository.findById(conversationId)
     if (!user || !conversation) {
       throw new Error('User or conversation not found')
